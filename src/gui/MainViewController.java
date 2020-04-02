@@ -16,52 +16,47 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.VBox;
 
-public class MainViewController implements Initializable{
+public class MainViewController implements Initializable {
 	@FXML
 	private MenuItem menuItemSeller;
 	@FXML
 	private MenuItem menuItemDepartment;
 	@FXML
 	private MenuItem menuItemAbout;
-	
+
 	@FXML
-	public void onMenuItemSelllerAction () {
+	public void onMenuItemSelllerAction() {
 		System.out.println("onMenuItemSelllerAction");
 	}
-	
+
 	@FXML
 	public void onMenuItemSelllerDepartmentAction() {
-		System.out.println("onMenuItemSelllerDepartmentAction");
+		loadView("/gui/DepartmentList.fxml");
+
 	}
-	
+
 	@FXML
-	public void onMenuItemAboutAction () {
-		System.out.println("onMenuItemAboutAction");
+	public void onMenuItemAboutAction() {
 		loadView("/gui/About.fxml");
 	}
-	
-	
-	
-	
+
 	@Override
 	public void initialize(URL uri, ResourceBundle rb) {
-		
+
 	}
-	
-	
-	private synchronized void loadView (String absoluteName) {
+
+	private synchronized void loadView(String absoluteName) {
 		try {
 			FXMLLoader loader = new FXMLLoader(getClass().getResource(absoluteName));
 			VBox newVBox = loader.load();
 			Scene mainScene = Main.getMainScene();
 			VBox mainVBox = (VBox) ((ScrollPane) mainScene.getRoot()).getContent();
-			
+
 			Node mainMenu = mainVBox.getChildren().get(0);
 			mainVBox.getChildren().clear();
 			mainVBox.getChildren().add(mainMenu);
 			mainVBox.getChildren().addAll(newVBox.getChildren());
-			
-			
+
 		} catch (IOException e) {
 			Alerts.showAlert("IO Exception", "Error loading view", e.getMessage(), AlertType.ERROR);
 		}

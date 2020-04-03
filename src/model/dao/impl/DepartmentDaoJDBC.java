@@ -11,9 +11,9 @@ import com.mysql.jdbc.Statement;
 
 import db.DB;
 import db.DbException;
+import db.DbIntegrityException;
 import model.dao.DepartmentDao;
 import model.entities.Department;
-import model.entities.Seller;
 
 public class DepartmentDaoJDBC implements DepartmentDao {
 
@@ -84,7 +84,7 @@ public class DepartmentDaoJDBC implements DepartmentDao {
 			int rows = st.executeUpdate();
 
 			if (rows == 0) {
-				throw new DbException("Invalid id! ");
+				throw new DbIntegrityException("Invalid id! ");
 			}
 
 		} catch (SQLException e) {
